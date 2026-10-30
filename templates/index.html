@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CineMatch recommends movies based on your interests.">
+  <title>CineMatch | Movie Discovery</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">CINE<span>MATCH</span></a>
+    <span class="cpu-tag">CPU-POWERED · NO GPU REQUIRED</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">YOUR TASTE. YOUR NEXT MOVIE.</div>
+      <h1>Find a movie that<br><span>feels just right.</span></h1>
+      <p>Describe what you want to watch. CineMatch searches movie content and finds relevant matches.</p>
+    </section>
+
+    <section class="search-panel">
+      <label for="query">What kind of movie are you in the mood for?</label>
+      <textarea id="query" rows="3" placeholder="Example: A mind-bending mystery thriller with suspense, clever twists and a little action..."></textarea>
+      <div class="filters">
+        <div class="field">
+          <label for="genre">Genre</label>
+          <select id="genre">
+            <option value="">Any genre</option>
+            {% for genre in genres %}<option value="{{ genre }}">{{ genre }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="year-from">Year from</label>
+          <input id="year-from" type="number" min="1900" max="2100" placeholder="2000">
+        </div>
+        <div class="field">
+          <label for="year-to">Year to</label>
+          <input id="year-to" type="number" min="1900" max="2100" placeholder="2026">
+        </div>
+        <div class="field">
+          <label for="rating">Minimum rating</label>
+          <select id="rating">
+            <option value="">Any rating</option>
+            <option value="5">5+</option><option value="6">6+</option>
+            <option value="7">7+</option><option value="8">8+</option>
+          </select>
+        </div>
+      </div>
+      <button id="search-btn" type="button">Find my movies <span>→</span></button>
+      <p class="hint">Tip: combine a natural-language description with optional filters.</p>
+    </section>
+
+    <section class="results-section">
+      <div class="results-heading">
+        <div><div class="eyebrow">PERSONALIZED PICKS</div><h2 id="results-title">Your recommendations</h2></div>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div id="status" class="status">Tell CineMatch what you feel like watching to get started.</div>
+      <div id="results" class="movie-grid"></div>
+    </section>
+  </main>
+  <footer> CINE<span>MATCH</span> <small>Content-based recommendations · TF-IDF + cosine similarity</small></footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
